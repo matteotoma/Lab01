@@ -28,18 +28,63 @@ public class FXMLController {
 
     @FXML
     private TextArea txtResult;
+    
+    @FXML
+    private TextArea txtTime;
 
     @FXML
     private Button btnReset;
+    
+    @FXML
+    private Button btnCancella;
+    
+    @FXML
+    void doCancella(ActionEvent event) {
+    	double start = System.nanoTime();
+    	String c = txtResult.getSelectedText();
+    	elenco.cancella(c);
+    	String risultato = "";
+    	for(String s: elenco.getElenco()) {
+    		if(risultato.equals(""))
+    			risultato += s;
+    		else
+    			risultato += "\n" + s;
+    	}
+    	txtResult.clear();
+    	txtResult.appendText(risultato);
+    	txtTime.clear();
+    	double finish = System.nanoTime();
+    	txtTime.appendText(""+(finish-start));
+    }
 
     @FXML
     void doInsert(ActionEvent event) {
-    	// TODO
+    	double start = System.nanoTime();
+    	String p = txtParola.getText();
+    	elenco.addParola(p);
+    	String risultato = "";
+    	for(String s: elenco.getElenco()) {
+    		if(risultato.equals(""))
+    			risultato += s;
+    		else
+    			risultato += "\n" + s;
+    	}
+    	txtResult.clear();
+    	txtResult.appendText(risultato);
+    	txtParola.clear();
+    	txtTime.clear();
+    	double finish = System.nanoTime();
+    	txtTime.appendText(""+(finish-start));
     }
 
     @FXML
     void doReset(ActionEvent event) {
-    	// TODO
+    	double start = System.nanoTime();
+    	txtResult.clear();
+    	elenco.reset();
+    	txtTime.clear();
+    	double finish = System.nanoTime();
+    	txtTime.appendText(""+(finish-start));
     }
 
     @FXML
